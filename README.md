@@ -6,5 +6,5 @@ https://ourworldindata.org/covid-deaths
 
 ## Process
 1. Download the csv file and load the data to MS SQL Server 
-2. Cleaned data on MS SQL Server to use for visualization 
+2. Cleaned data on MS SQL Server to prepare for visualization 
 3. Create dashboard on Tableau Public 
