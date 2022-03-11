@@ -1,4 +1,4 @@
-# Covid World Cases and Deaths (As of Jan 2022)
+# Covid World Cases and Deaths
 This project was created for understanding and visualizing the trend of Covid cases and deaths in the world. 
 
 ## Data Source
