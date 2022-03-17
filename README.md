@@ -4,7 +4,7 @@ This is the data repository for the Global COVID Deaths and Cases dashboard crea
 Visual Dashboard (desktop): https://public.tableau.com/app/profile/shiori.nada/viz/Covid-19GlobalCasesDeaths/Dashboard2
 
 ## Data Source
-https://ourworldindata.org/covid-deaths
+https://github.com/CSSEGISandData/COVID-19
 
 ## Process
 1. Download the csv file and load the data to MS SQL Server 
