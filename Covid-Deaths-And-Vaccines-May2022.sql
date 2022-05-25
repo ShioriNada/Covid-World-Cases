@@ -20,18 +20,26 @@ ORDER BY 1,2
 
 --Looking at Total Cases vs Population
 --Shows what percentage of population got Covid
-SELECT location, date, population, total_cases, total_cases/population)*100 AS PercentPopulationInfected
+SELECT location, date, population, total_cases, (total_cases/population)*100 AS PercentPopulationInfected
 FROM dbo.[CovidDeaths-May22]
 WHERE continent IS NOT NULL
 ORDER BY 1,2
 
---Looking at countries with highest infection rate compared to population
+--Looking at countries with highest infection rate compared to population by day
 --Shows
 SELECT location, population, date, MAX(total_cases) AS HighestInfectionCount, 
 MAX((total_cases/population))*100 AS PercentPopulationInfected
 FROM dbo.[CovidDeaths-May22]
 WHERE continent IS NOT NULL
 GROUP BY location, population, date
+ORDER BY PercentPopulationInfected DESC
+
+--Highest infection rate and compared to population by country
+SELECT location, population, MAX(total_cases) AS HighestInfectionCount, 
+MAX((total_cases/population))*100 AS PercentPopulationInfected
+FROM dbo.[CovidDeaths-May22]
+WHERE continent IS NOT NULL
+GROUP BY location, population
 ORDER BY PercentPopulationInfected DESC
 
 -- Showing countries with highest death count per population
@@ -57,6 +65,19 @@ FROM dbo.[CovidDeaths-May22]
 WHERE continent IS NOT NULL
 GROUP BY continent
 ORDER BY TotalDeathCount DESC
+
+--Death per capita ranking by country
+WITH temp AS (
+SELECT location, continent, population, MAX(cast(total_deaths as int)) AS TotalDeathCount,
+	   SUM(CAST(new_deaths AS int))/MAX(population)*100 AS DeathPerCapita
+FROM dbo.[CovidDeaths-May22]
+WHERE continent IS NOT NULL
+GROUP BY location, continent, population
+)
+
+SELECT location, continent, population, TotalDeathCount, DeathPerCapita, RANK() OVER (ORDER BY DeathPerCapita DESC) AS Rank
+FROM temp
+ORDER BY DeathPerCapita DESC
 
 
 --GLOBAL NUMBERS
